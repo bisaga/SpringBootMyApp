@@ -1,3 +1,7 @@
+/*
+*  MIT License
+*  Copyright (c) 2017 Igor Babic
+*/
 package com.bisaga.myapp;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -5,9 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.Authenticator;
 
-/**
- * Created by igorb on 17. 06. 2017.
- */
 @RestController
 public class CurrencyController {
 

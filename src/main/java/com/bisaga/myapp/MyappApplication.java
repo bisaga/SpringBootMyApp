@@ -1,3 +1,7 @@
+/*
+*  MIT License
+*  Copyright (c) 2017 Igor Babic
+*/
 package com.bisaga.myapp;
 
 import org.springframework.boot.SpringApplication;

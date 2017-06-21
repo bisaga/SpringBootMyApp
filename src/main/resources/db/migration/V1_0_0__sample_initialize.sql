@@ -1,4 +1,9 @@
 /*
+*  MIT License
+*  Copyright (c) 2017 Igor Babic
+*/
+
+/*
  * Currency
  */
 CREATE TABLE currency (

@@ -1,3 +1,7 @@
+/*
+*  MIT License
+*  Copyright (c) 2017 Igor Babic
+*/
 package com.bisaga.myapp;
 
 import static com.bisaga.myapp.database.model.tables.Currency.CURRENCY;
@@ -13,9 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 
-/**
- * Created by igorb on 17. 06. 2017.
- */
 @Service
 @Transactional
 class CurrencyService {

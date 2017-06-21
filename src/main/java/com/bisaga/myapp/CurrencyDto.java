@@ -1,8 +1,9 @@
+/*
+*  MIT License
+*  Copyright (c) 2017 Igor Babic
+*/
 package com.bisaga.myapp;
 
-/**
- * Created by igorb on 17. 06. 2017.
- */
 public class CurrencyDto {
     private String code;
     private String abbreviation;
