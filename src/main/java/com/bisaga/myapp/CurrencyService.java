@@ -35,6 +35,7 @@ class CurrencyService {
         currList = db.select().from(CURRENCY)
                 .where(CURRENCY.CODE.eq(code))
                 .fetch().into(CurrencyDto.class);
+        
         return currList.size() > 0 ? currList.get(0) : null;
     }
 
