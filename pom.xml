@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.bisaga</groupId>
+    <artifactId>myapp</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>myapp</name>
+    <description>This is a spring boot MyApp sample application</description>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.4.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <!-- Database -->
+        <db.url>jdbc:postgresql://localhost:5432/myappdb</db.url>
+        <db.username>postgres</db.username>
+        <db.password>postgres</db.password>
+        <!-- FlyWayDB -->
+        <org.flywaydb.version>4.2.0</org.flywaydb.version>
+        <org.flywaydb.schema>public</org.flywaydb.schema>
+        <org.flywaydb.location>classpath:db/migration</org.flywaydb.location>
+        <!-- jOOQ -->
+        <org.jooq.version>3.9.2</org.jooq.version>
+        <org.jooq.codegen.namespace>com.bisaga.myapp.database.model</org.jooq.codegen.namespace>
+        <org.jooq.input_schema>public</org.jooq.input_schema>
+        <org.jooq.target_dir>src/main/java/</org.jooq.target_dir>
+
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jooq</artifactId>
+        </dependency>
+        <dependency>
+            <version>${org.flywaydb.version}</version>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <version>${org.jooq.version}</version>
+            <artifactId>jooq</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <version>${org.flywaydb.version}</version>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <!-- Note that we're executing the Flyway plugin in the "generate-sources" phase -->
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>migrate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <!-- Note that we need to prefix the db/migration path with filesystem:
+                    to prevent Flyway from looking for our migration scripts only on the classpath -->
+                <configuration>
+                    <url>${db.url}</url>
+                    <user>${db.username}</user>
+                    <password>${db.password}</password>
+                    <locations>
+                        <location>${org.flywaydb.location}</location>
+                    </locations>
+                    <schemas>${org.flywaydb.schema}</schemas>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <!-- Use org.jooq for the Open Source Edition org.jooq.pro for commercial
+                    editions, org.jooq.pro-java-6 for commercial editions with Java 6 support,
+                    org.jooq.trial for the free trial edition Note: Only the Open Source Edition
+                    is hosted on Maven Central. Import the others manually from your distribution -->
+                <groupId>org.jooq</groupId>
+                <version>${org.jooq.version}</version>
+                <artifactId>jooq-codegen-maven</artifactId>
+                <!-- The jOOQ code generation plugin is also executed in the generate-sources phase,
+                     prior to compilation -->
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+                <!-- This is a minimal working configuration. See the manual's section about the code generator
+                     for more details -->
+                <configuration>
+                    <jdbc>
+                        <url>${db.url}</url>
+                        <user>${db.username}</user>
+                        <password>${db.password}</password>
+                    </jdbc>
+                    <generator>
+                        <database>
+                            <includes>.*</includes>
+                            <inputSchema>${org.jooq.input_schema}</inputSchema>
+                        </database>
+                        <target>
+                            <packageName>${org.jooq.codegen.namespace}</packageName>
+                            <directory>${org.jooq.target_dir}</directory>
+                        </target>
+                    </generator>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
