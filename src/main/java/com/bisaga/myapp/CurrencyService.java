@@ -26,17 +26,30 @@ class CurrencyService {
     private DSLContext db;
 
     /**
+     * List all currencies in the currency table
+     * @return Return list of currency records
+     */
+    List<CurrencyDto> getAll() {
+        List<CurrencyDto> currList;
+        currList = db.select().from(CURRENCY)
+                .fetch().into(CurrencyDto.class);
+
+        return currList;
+    }
+
+
+    /**
      * Search for a currency record by currency code
      * @param code  currency code as parameter
      * @return Return currency record
      */
-    CurrencyDto getByCode(String code) {
+    List<CurrencyDto> getByCode(String code) {
         List<CurrencyDto> currList;
         currList = db.select().from(CURRENCY)
                 .where(CURRENCY.CODE.eq(code))
                 .fetch().into(CurrencyDto.class);
         
-        return currList.size() > 0 ? currList.get(0) : null;
+        return currList;
     }
 
     /**
