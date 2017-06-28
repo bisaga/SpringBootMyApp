@@ -37,19 +37,18 @@ class CurrencyService {
         return currList;
     }
 
-
     /**
      * Search for a currency record by currency code
      * @param code  currency code as parameter
      * @return Return currency record
      */
-    List<CurrencyDto> getByCode(String code) {
+    CurrencyDto getByCode(String code) {
         List<CurrencyDto> currList;
         currList = db.select().from(CURRENCY)
                 .where(CURRENCY.CODE.eq(code))
                 .fetch().into(CurrencyDto.class);
         
-        return currList;
+        return currList.get(0);
     }
 
     /**
