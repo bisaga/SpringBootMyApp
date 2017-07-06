@@ -80,11 +80,6 @@
             </plugin>
 
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-
-            <plugin>
                 <groupId>org.flywaydb</groupId>
                 <version>${org.flywaydb.version}</version>
                 <artifactId>flyway-maven-plugin</artifactId>
@@ -149,6 +144,13 @@
                     </generator>
                 </configuration>
             </plugin>
+
+            <!-- This plugin will build a single startable JAR file from whole project -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
         </plugins>
     </build>
 
