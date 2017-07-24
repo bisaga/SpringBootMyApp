@@ -51,6 +51,22 @@ class CurrencyService {
         return currList.get(0);
     }
 
+
+    /**
+     * Find and return currency record by row identifier
+     * @param rowId represent exact record identifier
+     * @return return selected currency record
+     */
+    CurrencyDto getByRowId(Integer rowId) {
+        List<CurrencyDto> currList;
+        currList = db.select().from(CURRENCY)
+                .where(CURRENCY.ROW_ID.eq(rowId))
+                .fetch().into(CurrencyDto.class);
+
+        return currList.get(0);
+    }
+
+
     /**
      * Delete currency record by row identifier
      * @param rowId rowId row identifier

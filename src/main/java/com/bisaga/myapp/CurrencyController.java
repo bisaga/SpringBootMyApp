@@ -20,9 +20,9 @@ public class CurrencyController {
         return service.getAll();
     }
 
-    @RequestMapping(value="/{code}", method=RequestMethod.GET)
-    public CurrencyDto findByCode(@PathVariable("code") String code) {
-        return service.getByCode(code);
+    @RequestMapping(value="/{rowid}", method=RequestMethod.GET)
+    public CurrencyDto findByRowId(@PathVariable(value = "rowid") Integer rowId) {
+        return service.getByRowId(rowId);
     }
 
     @RequestMapping(method=RequestMethod.POST)
